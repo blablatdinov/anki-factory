@@ -17,3 +17,18 @@ jobs:
       with:
         node-version: 18.x
         cache: 'npm'
+    - run: npm install
+
+    - name: Generating
+    - run: |
+        for filename in $(ls cards)
+        do
+          ./node_modules/mdanki/src/index.js cards/$filename cards.apkg
+        done
+
+    # - name: Upload anki package
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: cards.apkg
+    #     path: cards.apkg
+    #
