@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: 'master'
+    branches: ['master', 'actions']
 
 jobs:
   build:
@@ -20,15 +20,14 @@ jobs:
     - run: npm install
 
     - name: Generating
-    - run: |
+      run: |
         for filename in $(ls cards)
         do
           ./node_modules/mdanki/src/index.js cards/$filename cards.apkg
         done
 
-    # - name: Upload anki package
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: cards.apkg
-    #     path: cards.apkg
-    #
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: cards.apkg
+        path: cards.apkg
